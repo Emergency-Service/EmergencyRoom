@@ -1,19 +1,217 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>응급 상황 설명</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f4f4f4;
+            font-size: 18px; /* 기본 글자 크기 추가 확대 */
+        }
+        header {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 30px 20px; /* 헤더 패딩 확대 */
+            border-bottom: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            margin-right: 40px;
+        }
+        header img {
+            height: 70px; /* 이미지 크기 추가 확대 */
+        }
+        .header-buttons {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            display: flex;
+            gap: 20px; /* 버튼 간격 확대 */
+            align-items: center;
+        }
+        .header-buttons button {
+            background-color: transparent;
+            color: #333;
+            font-size: 20px; /* 버튼 글자 크기 추가 확대 */
+            padding: 15px 25px; /* 버튼 패딩 확대 */
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .header-buttons button:hover {
+            background-color: #f0f0f0;
+            color: #000;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            padding: 10px 20px; /* 검색바 패딩 확대 */
+            background-color: #fff;
+            gap: 15px; /* 검색창 내부 간격 확대 */
+        }
+        .search-bar input {
+            border: none;
+            outline: none;
+            width: 240px; /* 검색창 너비 확대 */
+            font-size: 20px; /* 검색창 글자 크기 추가 확대 */
+        }
+        .search-bar button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+        .search-bar button img {
+            width: 24px;
+            height: 24px; /* 아이콘 크기 확대 */
+        }
+        .header-left img {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 350px; /* 이미지 크기 추가 확대 */
+            height: auto;
+        }
+        .header-center img {
+            width: 350px; /* 이미지 크기 추가 확대 */
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        main {
+            width: 70%; /* 메인 컨텐츠 너비 확대 */
+            background: #ffffff;
+            margin: 30px auto;
+            padding: 30px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            font-size: 28px; /* 제목 글자 크기 추가 확대 */
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 22px; /* 라벨 글자 크기 추가 확대 */
+        }
+        textarea, input {
+            width: 100%;
+            padding: 15px; /* 입력 필드 패딩 확대 */
+            font-size: 20px; /* 입력 필드 글자 크기 추가 확대 */
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 180px; /* 텍스트 영역 높이 추가 확대 */
+            resize: none;
+        }
+        .input-group {
+            display: flex;
+            gap: 20px; /* 입력 필드 간격 확대 */
+        }
+        .example {
+            font-size: 18px; /* 예시 텍스트 크기 추가 확대 */
+            color: #888;
+            margin-top: 8px;
+        }
+        button {
+            background-color: #0056b3;
+            color: #ffffff;
+            font-size: 22px; /* 버튼 글자 크기 추가 확대 */
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #003d80;
+        }
+    </style>
 </head>
 <body>
-<form action="recommend_hospital" enctype="application/x-www-form-urlencoded">
-
-    <input type="text" name="request" value="교통사고가 났어요 머리에 피가 많이나고 있습니다.">
-    <input type="text" name="latitude" value="37.538435245262626">
-    <input type="text" name="longitude" value="126.98982802695484">
-    <input type="text" name="count" value="5">
-    <input type="submit" value="Submit">
-</form>
+    <header>
+        <div class="header-left">
+            <img th:src="@{/images/img4.png}" alt="Slogan Image">
+        </div>
+        <div class="header-center">
+            <img th:src="@{/images/img3.png}" alt="KakaoTalk Image">
+        </div>
+        <div class="header-buttons">
+            <div class="search-bar">
+                <input type="text" placeholder="검색어를 입력하세요">
+                <button>
+                    <img th:src="@{/images/img5.png}" alt="Search Image">
+                </button>
+            </div>
+            <button onclick="location.href='#'">마이 페이지</button>
+            <button onclick="location.href='#'">로그아웃</button>
+        </div>
+    </header>
+    <main>
+        <h2>응급 상황 설명</h2>
+        <form action="recommend_hospital" enctype="application/x-www-form-urlencoded">
+            <div class="form-group">
+                <label for="message">상황 메시지 (필수)</label>
+                <textarea id="message" name="request" value="교통사고가 났어요 머리에 피가 많이나고 있습니다." placeholder="상황을 최대한 자세히 설명해주세요."></textarea>
+            </div>
+            <div class="form-group input-group">
+                <div>
+                    <label for="latitude">위도 (선택)</label>
+                    <input type="text" id="latitude" name="latitude" value="37.538435245262626" placeholder="위도를 입력해주세요.">
+                </div>
+                <div>
+                    <label for="longitude">경도 (선택)</label>
+                    <input type="text" id="longitude" name="longitude" value="126.98982802695484" placeholder="경도를 입력해주세요.">
+                </div>
+                <div>
+                    <label for="hospitals">추천 응급실 수 (선택)</label>
+                    <input type="text" id="hospitals" name="count" value="5" placeholder="응급실 개수를 입력해주세요.">
+                </div>
+            </div>
+            <p class="example">예시: 서울시청 - 위도: 37.571513, 경도: 126.734086</p>
+            <button type="submit">검색</button>
+        </form>
+        <!-- <form>
+            <div class="form-group">
+                <label for="message">상황 메시지 (필수)</label>
+                <textarea id="message" name="message" placeholder="상황을 최대한 자세히 설명해주세요."></textarea>
+            </div>
+            <div class="form-group input-group">
+                <div>
+                    <label for="latitude">위도 (선택)</label>
+                    <input type="text" id="latitude" name="latitude" placeholder="위도를 입력해주세요.">
+                </div>
+                <div>
+                    <label for="longitude">경도 (선택)</label>
+                    <input type="text" id="longitude" name="longitude" placeholder="경도를 입력해주세요.">
+                </div>
+                <div>
+                    <label for="hospitals">추천 응급실 수 (선택)</label>
+                    <input type="text" id="hospitals" name="hospitals" placeholder="응급실 개수를 입력해주세요.">
+                </div>
+            </div>
+            <p class="example">예시: 서울시청 - 위도: 37.571513, 경도: 126.734086</p>
+            <button type="submit">검색</button>
+        </form> -->
+    </main>
 </body>
 </html>
-
-
