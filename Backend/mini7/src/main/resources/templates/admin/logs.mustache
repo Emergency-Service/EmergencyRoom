@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Logs</title>
+</head>
+<body>
+    <h1>Logs</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Datetime</th>
+                <th>Input Text</th>
+                <th>Input Latitude</th>
+                <th>Input Longitude</th>
+                <th>Emergency Class</th>
+                <th>Hospital 1</th>
+                <th>Address 1</th>
+                <th>Tel 1</th>
+                <th>Distance 1</th>
+                <th>Duration 1</th>
+                <th>Arrival Time 1</th>
+                <th>Hospital 2</th>
+                <th>Address 2</th>
+                <th>Tel 2</th>
+                <th>Distance 2</th>
+                <th>Duration 2</th>
+                <th>Arrival Time 2</th>
+                <th>Hospital 3</th>
+                <th>Address 3</th>
+                <th>Tel 3</th>
+                <th>Distance 3</th>
+                <th>Duration 3</th>
+                <th>Arrival Time 3</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#logs}}
+            <tr>
+                <td>{{datetime}}</td>
+                <td>{{inputText}}</td>
+                <td>{{inputLatitude}}</td>
+                <td>{{inputLongitude}}</td>
+                <td>{{emClass}}</td>
+                <td>{{hospital1}}</td>
+                <td>{{addr1}}</td>
+                <td>{{tel1}}</td>
+                <td>{{distance1}}</td>
+                <td>{{duration1}}</td>
+                <td>{{arrivalTime1}}</td>
+                <td>{{hospital2}}</td>
+                <td>{{addr2}}</td>
+                <td>{{tel2}}</td>
+                <td>{{distance2}}</td>
+                <td>{{duration2}}</td>
+                <td>{{arrivalTime2}}</td>
+                <td>{{hospital3}}</td>
+                <td>{{addr3}}</td>
+                <td>{{tel3}}</td>
+                <td>{{distance3}}</td>
+                <td>{{duration3}}</td>
+                <td>{{arrivalTime3}}</td>
+            </tr>
+            {{/logs}}
+        </tbody>
+    </table>
+</body>
+</html>
