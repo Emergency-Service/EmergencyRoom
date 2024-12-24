@@ -32,7 +32,9 @@ public class indexController {
             // 병원 추천 서비스 호출
             Map<String, Object> response = hospitalService.recommendHospital(text, latitude, longitude, count);
             // 모델에 추천 결과 추가
-            model.addAttribute("model", response);
+            model.addAttribute("emergency_prediction", response.get("emergency_prediction"));
+            model.addAttribute("nearest_Hospitals", response.get("nearest_hospitals"));
+            model.addAttribute("language", response.get("language"));
 
             // 결과 페이지 반환
             return "Emergency/result";
