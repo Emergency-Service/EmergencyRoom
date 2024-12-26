@@ -92,16 +92,14 @@ public class indexController {
         return "Emergency/mypage";
     }
 
-    @GetMapping("/login")
-    public String loginPage1() {
-        return "Emergency/login";
-    }
+//    @GetMapping("/auth/login")
+//    public String loginPage1() {
+//        return "Emergency/login";
+//    }
 
     @GetMapping("/hospital/logout")
     public String loginPage() {
         return "Emergency/login";
     }
-
-
 
 }

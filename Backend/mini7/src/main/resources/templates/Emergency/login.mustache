@@ -206,7 +206,7 @@
             <button type="submit">로그인</button>
         </form>
         <div class="links">
-            <a href="#" class="modal-trigger" data-modal="id-modal">아이디 찾기</a> | <a href="#" class="modal-trigger" data-modal="pwd-modal">비밀번호 찾기</a> | <a href="/join">회원가입</a>
+            <a href="#" class="modal-trigger" data-modal="id-modal">아이디 찾기</a> | <a href="#" class="modal-trigger" data-modal="pwd-modal">비밀번호 찾기</a> | <a href="/auth/register">회원가입</a>
         </div>
 
         <!-- 모달 팝업들 -->
@@ -316,53 +316,54 @@
 
 
 <script>
-    document.getElementById('login-form').addEventListener('submit', function (e) {
-        e.preventDefault(); // 폼 제출 방지
+    document.getElementById('login-form').addEventListener('submit', async function (e) {
+        e.preventDefault(); // 기본 폼 제출 방지
 
-        // 입력 필드와 에러 메시지
-        const username = document.getElementById('username');
-        const password = document.getElementById('password');
+        // 입력 필드 값 가져오기
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value.trim();
+
+        // 에러 메시지
         const usernameError = document.getElementById('username-error');
         const passwordError = document.getElementById('password-error');
 
-        const correctUsername = "admin";
-        const correctPassword = "1234";
+        // 초기화
+        usernameError.style.display = 'none';
+        passwordError.style.display = 'none';
 
-        let isValid = true;
-
-        // 아이디 유효성 검사
-        if (username.value.trim() === "") {
-            username.classList.add('error');
+        // 유효성 검사
+        if (!username) {
             usernameError.textContent = "아이디를 입력하세요.";
             usernameError.style.display = 'block';
-            isValid = false;
-        } else {
-            username.classList.remove('error');
-            usernameError.style.display = 'none';
+            return;
         }
 
-        // 비밀번호 유효성 검사
-        if (password.value.trim() === "") {
-            password.classList.add('error');
+        if (!password) {
             passwordError.textContent = "비밀번호를 입력하세요.";
             passwordError.style.display = 'block';
-            isValid = false;
-        } else {
-            password.classList.remove('error');
-            passwordError.style.display = 'none';
+            return;
         }
 
-        if (isValid) {
-            if (username.value !== correctUsername || password.value !== correctPassword) {
-                username.classList.add('error');
-                password.classList.add('error');
-                passwordError.textContent = "아이디 또는 비밀번호가 잘못되었습니다.";
-                passwordError.style.display = 'block';
-            } else {
+        // 서버로 로그인 요청 보내기
+        try {
+            const response = await fetch('/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId: username, password: password }),
+            });
+
+            if (response.ok) {
                 alert('로그인 성공');
-                localStorage.setItem('isLoggedIn', 'true');
-                window.location.href = '/';
+                localStorage.setItem('isLoggedIn', 'true'); // 세션 관리
+                window.location.href = '/'; // 메인 페이지로 리디렉션
+            } else {
+                const errorData = await response.json();
+                passwordError.textContent = errorData.message || "로그인 실패. 아이디 또는 비밀번호를 확인하세요.";
+                passwordError.style.display = 'block';
             }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('서버 오류가 발생했습니다. 잠시 후 다시 시도하세요.');
         }
     });
         // 모든 모달 트리거와 모달 닫기 버튼 처리
