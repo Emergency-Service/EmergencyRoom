@@ -13,4 +13,9 @@ public class loginController {
 //    public String loginPage() {
 //        return "Emergency/login";
 //    }
+
+    @GetMapping("/join")
+    public String joinPage(){
+        return "Emergency/join";
+    }
 }
